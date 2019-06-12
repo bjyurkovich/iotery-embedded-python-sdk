@@ -1,4 +1,0 @@
-{
-    "python.pythonPath": "test_env/bin/python3.7",
-    "python.formatting.provider": "black"
-}
