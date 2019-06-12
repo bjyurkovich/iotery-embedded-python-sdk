@@ -24,10 +24,10 @@ for path in spec["paths"]:
     temp["description"] = p[op.lower()]["summary"]
     temp["path"] = path
     link = path.replace("/", "~1")
-    temp["link"] = f"https://iotery.io/docs/embedded/#tag/Embedded/paths/{link}/{op}"
+    temp["link"] = f"https://iotery.io/docs/embedded/#tag/Embedded/paths/{link}/{op.lower()}"
 
 
     out["routes"].append(temp)
 
-with open("./api.out.json", "w") as f:
+with open("../iotery_embedded_python_sdk/api.json", "w") as f:
     json.dump(out, f)

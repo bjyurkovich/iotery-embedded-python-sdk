@@ -1,0 +1,1260 @@
+{
+  "openapi": "3.0.0",
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "info": {
+    "title": "iotery.io REST API",
+    "description": "This documentation describes all available API routes for interacting with the iotery.io Platform.  These routes are intended to be used in implementing your applications and in processing the webhooks that are defined in the API.\n\n # Authorization\n\nSome description\n\n<!-- ReDoc-Inject: <security-definitions> -->",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.iotery.io/v1",
+      "description": "iotery.io Platform"
+    }
+  ],
+  "paths": {
+    "/embedded/basic/get-token": {
+      "post": {
+        "summary": "Get token for device via key, serial, and secret.",
+        "sdkName": "getDeviceTokenBasic",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "minLength": 2
+                  },
+                  "serial": {
+                    "type": "string",
+                    "minLength": 2
+                  },
+                  "secret": {
+                    "type": "string",
+                    "minLength": 2
+                  }
+                },
+                "required": ["key", "serial", "secret"],
+                "additionalProperties": false
+              },
+              "example": {
+                "key": "HUB-KEY-3",
+                "serial": "HUB-SERIAL-3",
+                "secret": "HUB-SECRET-3"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response returns a token, expiration time, and device information.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5YjJmYTBjZS03NjliLTExZTktOGM1Ni1lZTc0NzkwM2EyMjUiLCJpYXQiOjE1NTc4NzQ2MzIsImV4cCI6MTU2MDQ2NjYzMn0.EHgd-rDm-_SzkRrf5wF4311Akfz5V0hRMcojdvHgfIs",
+                  "expiration": 1560466632,
+                  "device": {
+                    "uuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                    "serial": "HUB-SERIAL-3",
+                    "key": "HUB-KEY-3",
+                    "secret": "HUB-SECRET-3",
+                    "name": "Hub",
+                    "qrCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAYAAAB1PADUAAAAAklEQVR4AewaftIAAATqSURBVO3BQW4kwREEwfDC/P/LLh7zVECjc6ilFGb4I1VLTqoWnVQtOqladFK16KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatFJ1aKTqkWfvATkN6mZgNyouQFyo2YCMqm5ATKpeQLIb1LzxknVopOqRSdViz5ZpmYTkBs1N0AmNTdqJiBPAJnUbFKzCcimk6pFJ1WLTqoWffJlQJ5Qs0nNBOQGyBtqJiA3at4A8oSabzqpWnRSteikatEnfxyQJ9RMQG7UPAFkUvP/5KRq0UnVopOqRZ/8cWomIJOabwIyqbkBMqn5X3JSteikatFJ1aJPvkzNb1LzhpoJyBNAJjWTmk1q/iUnVYtOqhadVC36ZBmQ3wRkUjMBmdS8oWYCMqmZgExqJiCTmhsg/7KTqkUnVYtOqhZ98pKa/yY1N2omIN8E5Ak1N2r+kpOqRSdVi06qFn3yZUAmNROQJ9RMQG7UTGomIE8AuVEzAZmATGomIJOaJ4BMam6ATGreOKladFK16KRq0ScvAXkCyKRmAjKpmYBMaiYgE5BJzaTmRs0EZFKzSc0NkEnNv+SkatFJ1aKTqkWffJmaJ9RMQG6A3Kj5TUAmNd8EZFIzAZnUTGo2nVQtOqladFK16JOX1NwAmdRMQCY1k5oJyKTmBsik5gbIpOYGyKTmBsik5g01E5BJzW86qVp0UrXopGrRJy8BuVHzBpAngDwB5A01E5AbNROQGzWTmgnIpGYCMqmZgExq3jipWnRSteikahH+yBcBuVEzAZnUTEDeUHMD5EbNG0Bu1NwAuVFzA2RSs+mkatFJ1aKTqkX4I4uATGomIG+o+SYgk5obIE+ouQEyqXkDyBNq3jipWnRSteikatEnLwF5Qs0NkEnNG0DeADKp2QTkBsik5gbIpGYC8k0nVYtOqhadVC365CU1E5A31ExAbtTcqJmATGomIJOaJ9RMQCYgT6i5AfKEmgnIppOqRSdVi06qFn3yy4A8oeYJIG+ouQEyqZmATGomIN+kZgIyqfmmk6pFJ1WLTqoW4Y+8AGRSMwF5Qs0EZFLzBJBJzQTkCTUTkN+k5l92UrXopGrRSdUi/JFFQCY1E5BJzRNAJjUTkCfUbAIyqbkBMqmZgExqJiCTmgnIpOabTqoWnVQtOqla9MlLQCY1E5BJzQRkUjMB2aRmE5BJzQTkCSA3QP5lJ1WLTqoWnVQtwh/5w4DcqHkCyKTmBsiNmhsgk5ongNyo+U0nVYtOqhadVC365CUgv0nNpOabgNyouQEyqXkCyKTmCSCTmgnIpOaNk6pFJ1WLTqoWfbJMzSYgN0AmNU8AuVEzAZmA3KiZgDyh5g01v+mkatFJ1aKTqkWffBmQJ9S8AeRGzY2aJ9TcAJnUTEAmIN8EZFKz6aRq0UnVopOqRZ/8cWomIJOaGzU3QJ4AMql5Qs0E5C85qVp0UrXopGrRJ38ckBsgN2reAPIEkCfUPAFkAjKpmYBMat44qVp0UrXopGrRJ1+m5pvUTECeADKpeULNBORGzQ2QSc0E5Ak1E5BvOqladFK16KRq0SfLgPw3qXkCyI2aCciNmgnIpGYCcgPkRs0EZAIyqZmAbDqpWnRSteikahH+SNWSk6pFJ1WLTqoWnVQtOqladFK16KRq0UnVopOqRSdVi06qFp1ULTqpWnRSteikatF/AIZYRUi/QbOqAAAAAElFTkSuQmCC",
+                    "additionalIdentifier": null,
+                    "claimCode": "MWWB29",
+                    "networkUuid": null,
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "description": null,
+                    "shortDescription": null,
+                    "isExternal": false,
+                    "externalIdentifier": null,
+                    "isProvisioned": false,
+                    "isLinkedToUser": false,
+                    "imageUrl": null,
+                    "avatarUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAmBJREFUeAHtmr1KA0EQx2dyOWNE8KMTbBUhkAgRbLW2tPJFfAgfwV5S+QwKVgEDKgQkYiOKYOEHaOJ5mvWGeE1wNgm7kl1vDkLI7N3s//+byV0xByCHEBACQkAICAEhIASEQDYJoA3bzdLG9Gf8sp5DXFCqO2Ujp2kOxFy7q9R9Ppypl5rHr1w+YwBkXsXP212AArfJOOM5gAjD2UMOQrJudlDlXTVPzkgbaeRcGgOgtueSuxLXaTQG4Mp/Xgdbp9EYgG5jH9bMASC8+WCU02gMIMgHJ+AxBOPHIEf2r+Kn1Wo4Gxfm2nFnBb7UyrD7lFtn+7+dm/8t6HJsrdGIE30P9DlbrlwHGGzqbnKDvGgBXJXXFzvvH3uIsKGUcuJxh4j3SsFxcXJid+mifptAOMoBbg0yyq2z9wAy/x5F5wBqxxXzZKKnRe2QNtK42jq/gwAvOYOD4iwAqnxCen5QgnGtkzbSSPtPhUX7AKjtx2Vu2H1Tjc9h9DTsNf3nsR3gUtv3i05/pxp/boxpeKRvFsBIWTw+WQB4XDwr0qUDrGD0OIl0gMfFsyJdOsAKRo+TSAd4XDwr0qUDrGD0OIl0gMfFsyI9Ex1Ak2KOViYA0Jj8/wNghjNJhSN6R+DfA+ifUFHbK8Br3bsBBEU7F+CouRgvNRs3ia6DUbVl4h6ggyIAdHSysCYdkIUq6zyyHUBTWN2FLqzZ0MgCoBG0CyZ1GmxoZAHQ/D0ZPj7qBIxzjbSRRlMNLAB6+WCyUKgAYM1Gq5kKTa/vacEaaSONaVy+hYAQEAJCQAgIASEgBITAaAS+ATgZpghBQ9SGAAAAAElFTkSuQmCC",
+                    "_data": null,
+                    "metadata": null,
+                    "channelId": null,
+                    "publicKey": "LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjQuMTANCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp4bVVFWE50SHhnRUN2QWlrVXdSRVlFek12QUJMS3dRdnprSk8zSnR4WkRkbjlNQ3hOL3lscDBSYUY0ZHkNClBVanRtWVVKS3ZpKzZkRTRUVTZyeDVldktpQUR4c0F0YTBIdHBWY0VXY210TWdxY0taejM3eFNrbG9pUQ0KTlRhREdrWk4rYjBBRVFFQUFjMGtPV0l5Wm1Fd1kyVXROelk1WWkweE1XVTVMVGhqTlRZdFpXVTNORGM1DQpNRE5oTWpJMXdvMEVFQUVJQUI4RkFsemJSOFlHQ3drSENBTUNCQlVJQ2dJREZnSUJBaGtCQWhzREFoNEINCkFBb0pFUDJHcGVJSmVEd252K2NDdVFHV2dZZTJocEhhRVFpTk4xOWVsSDZnM1ZBc1FVMG5YQmthUGR4Qw0KUEovZkhVeUdzQXdrc0hjQW1ubFpTc2J5K3FuRVg2eXdtcTFrU00wa1owOHZyMm9PQS8xV1gyZmtUMnE4DQp1VndyaUE4UHNaZUdQMU40SXQ3T1pRUmMyMGZHQVFLN0JwbW16VWlBYlMxTTFuWWduRDl0aU40bUF0TnENCkFzcTMxdFV0U2pZZFZMVnlKbUJCV3BXMzdSQ2plSlM4VGV5a0N1c2x1b2V5NDhNQWdwZnZ1MGdYOXl4VQ0KYkNZNkZ5UFVrRkNNTVFjL1NkcWRnZ1RjZ0pFQmF3QVJBUUFCd25jRUdBRUlBQWtGQWx6YlI4WUNHd3dBDQpDZ2tRL1lhbDRnbDRQQ2QzU2dLOENGTktpTlc4T00xVmFrOGV5L2w2S1BtMHFiQ1lIQUUvaUs4bXprNFYNCjUxSk4rYjMzeUJoc3IvMUtLcTgvazdsSEpuR0xUTW16S2I4czgveWxyaWlsME14RFk5TnVkeFV2cEFmbA0KaGhpeGM5SXAxamthcHFJWXhnPT0NCj0xN2tjDQotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQo=",
+                    "privateKey": "LS0tLS1CRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQ0KVmVyc2lvbjogT3BlblBHUC5qcyB2NC40LjEwDQpDb21tZW50OiBodHRwczovL29wZW5wZ3Bqcy5vcmcNCg0KeGNDTUJGemJSOFlCQXJ3SXBGTUVSR0JNekx3QVN5c0VMODVDVHR5YmNXUTNaL1RBc1RmOHBhZEVXaGVIDQpjajFJN1ptRkNTcjR2dW5ST0UxT3E4ZVhyeW9nQThiQUxXdEI3YVZYQkZuSnJUSUtuQ21jOSs4VXBKYUkNCmtEVTJneHBHVGZtOUFCRUJBQUVBQXJzSFFxL3d0TlhIa0hjZk5BZ1hBMmNpTkltS0czRmNUMzNGYXQ4ag0KNTdVcGF4dTdrMUpEOUVONER5VElTYWFlUnN5WWt3UFYzN2Y4VDVmRjhmV2RNUDJ0K3JCbXJMZk9Ga0V1DQp0aU1JMWxJN1VZMVFZMStXVFhJdEFWNHhWYWJ4WXpSSFJxVmF0eFc1U0l2ZWFJVkpvMDgwZm5WcHlJckwNCm5tZ05iSjZHTTloRitaU01wNFZIdndGZUxOZmhKZGRNc0JENHlPZStjbmFtdWgxd2VOU2VjT0hEdWdTVg0KZy9kU1NzMXBsRGpKTlc0Y0ladHVmWU1CWGlndXVZMGtpVTlHZEZxSlJNckpXb3NDSlpxaUxUY2ZvOGhTDQpqTnQyVDFRbUh5Vk1OekFqRkVLL3NYYVBhYnpOSkRsaU1tWmhNR05sTFRjMk9XSXRNVEZsT1MwNFl6VTINCkxXVmxOelEzT1RBellUSXlOY0tOQkJBQkNBQWZCUUpjMjBmR0Jnc0pCd2dEQWdRVkNBb0NBeFlDQVFJWg0KQVFJYkF3SWVBUUFLQ1JEOWhxWGlDWGc4SjcvbkFya0Jsb0dIdG9hUjJoRUlqVGRmWHBSK29OMVFMRUZODQpKMXdaR2ozY1FqeWYzeDFNaHJBTUpMQjNBSnA1V1VyRzh2cXB4Ritzc0pxdFpFak5KR2RQTDY5cURnUDkNClZsOW41RTlxdkxsY0s0Z1BEN0dYaGo5VGVDTGV4OENNQkZ6YlI4WUJBcnNHbWFiTlNJQnRMVXpXZGlDYw0KUDIySTNpWUMwMm9DeXJmVzFTMUtOaDFVdFhJbVlFRmFsYmZ0RUtONGxMeE43S1FLNnlXNmg3TGp3d0NDDQpsKys3U0JmM0xGUnNKam9YSTlTUVVJd3hCejlKMnAyQ0JOeUFrUUZyQUJFQkFBRUFBcmtCcENNOTJGRlcNCjFIVE92d0RNMlZpN044SHI0Zlh5UzhYNnZYZE5oTGMyWVFmSlV4WHRHRjFyclQ5NHRDNUxuNWlyU2s4Rg0KL1E4Q200eHhyZEJlV3hWOC8xSUF5bm96czZsTzI0eDhCZ283RlFWeldXSGU5SUNCQVY0elZVa2dDT1NRDQowMS9vUHU1V21KYThHbU95akVRNXN5ZVgxNmxkSjRaWTZBa3ZHK1Qzb01PbEhJQytLUUZlSU9wWVMyaW4NCnlVNEU1cXkxUW9idjg3aFcwMkhJVXdYMml5Y0JYTm95dFozb3VkSzdNMkpYWVB2bmpYTUJYUmtKc01Xaw0KZEsya1RNQWRwaWZyRkVleXdTWlhwQjhlVld1cVpDWkRxOGdXYkUyR3ErZXkwaVBuMkhlOWJtM0Nkd1FZDQpBUWdBQ1FVQ1hOdEh4Z0liREFBS0NSRDlocVhpQ1hnOEozZEtBcndJVTBxSTFidzR6VlZxVHg3TCtYb28NCitiU3BzSmdjQVQrSXJ5Yk9UaFhuVWszNXZmZklHR3l2L1VvcXJ6K1R1VWNtY1l0TXliTXB2eXp6L0tXdQ0KS0tYUXpFTmowMjUzRlMra0IrV0dHTEZ6MGluV09ScW1vaGpHDQo9V2hVeA0KLS0tLS1FTkQgUEdQIFBSSVZBVEUgS0VZIEJMT0NLLS0tLS0NCg==",
+                    "externalServiceUuid": null,
+                    "proxyDeviceUuid": null,
+                    "isProxy": false,
+                    "canCreateDevices": false,
+                    "dataTransferred": null,
+                    "maxDataTransfer": null,
+                    "freeDataTransfer": null,
+                    "securityType": "BASIC",
+                    "valid": true,
+                    "created": "2019-05-14T19:57:10.000Z",
+                    "creator": "986b25b6-769b-11e9-8c56-ee747903a225"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/batch-command-instances/:batchReferenceUuid/executed": {
+      "patch": {
+        "summary": "Set a collection of batched command instances as executed.",
+        "sdkName": "setBatchedCommandInstancesAsExecuted",
+        "parameters": [
+          {
+            "name": "batchReferenceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "description": "Provide a unix timestamp for when the commands were executed.",
+                    "type": "integer"
+                  }
+                },
+                "required": ["timestamp"],
+                "additionalProperties": false
+              },
+              "example": {
+                "timestamp": 1557874634
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response returns a success status.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/broker-address": {
+      "get": {
+        "summary": "Get the MQTT broker address.",
+        "sdkName": "getBrokerAddress",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides the broker URI and port number.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "uri": "192.168.0.7",
+                  "port": "1885"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/command-instances/executed": {
+      "post": {
+        "summary": "Report an already executed set of commands to the server.",
+        "sdkName": "reportAlreadyExecutedCommands",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commands": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "deviceUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "commandTypeUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "timestamp": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": ["deviceUuid", "commandTypeUuid", "timestamp"]
+                    }
+                  }
+                },
+                "required": ["commands"],
+                "additionalProperties": false
+              },
+              "example": {
+                "commands": [
+                  {
+                    "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                    "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                    "timestamp": 1557874633
+                  },
+                  {
+                    "deviceUuid": "9b967722-769b-11e9-8c56-ee747903a225",
+                    "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                    "timestamp": 1557874633
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides a success status.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/command-instances/:commandInstanceUuid/executed": {
+      "patch": {
+        "summary": "Report that a command has been executed to the server.",
+        "sdkName": "setCommandInstanceAsExecuted",
+        "parameters": [
+          {
+            "name": "commandInstanceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "description": "Provide a unix timestamp for when the command was executed.",
+                    "type": "integer"
+                  }
+                },
+                "required": ["timestamp"],
+                "additionalProperties": false
+              },
+              "example": {
+                "timestamp": 1557874633
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides success status, active notification instances, and a list of unexecuted commands.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/command-types": {
+      "get": {
+        "summary": "Get a list of available command types.",
+        "sdkName": "getCommandTypeListEmbedded",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of command types.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "uuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                    "enum": "MY_COMMAND_TYPE",
+                    "name": "My Command Type",
+                    "shortDescription": null,
+                    "description": "description",
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "commandFields": [
+                      {
+                        "uuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225",
+                        "title": "title",
+                        "shortDescription": null,
+                        "actionText": null,
+                        "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                        "enum": "MY_COMMAND_FIELD",
+                        "name": "My Command Field"
+                      }
+                    ],
+                    "deviceType": {
+                      "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                      "enum": "ENUM",
+                      "name": "name",
+                      "shortDescription": null,
+                      "proxySendingAllowed": true
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/current-timestamp": {
+      "get": {
+        "summary": "Get the current server time in epoch (unix) time.",
+        "sdkName": "getCurrentTimestamp",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response comes in the form of a epoch (unix) timestamp.",
+            "content": {
+              "application/json": {
+                "example": 1557874632
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/data-types": {
+      "get": {
+        "summary": "Get a list of available data types.",
+        "sdkName": "getDataTypeListEmbedded",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of data types.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "uuid": "9b0e068a-769b-11e9-8c56-ee747903a225",
+                    "enum": "MY_DATA_TYPE",
+                    "name": "My Data Type",
+                    "units": "dimensionless",
+                    "description": "description",
+                    "minValue": 0,
+                    "maxValue": 100,
+                    "isNumber": true,
+                    "shortDescription": null,
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "deviceType": {
+                      "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                      "enum": "ENUM",
+                      "name": "name",
+                      "shortDescription": null,
+                      "proxySendingAllowed": true
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/channelId/:channelId": {
+      "patch": {
+        "summary": "Update device channel.",
+        "sdkName": "updateDeviceChannel",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The request body is an empty object.",
+                "additionalProperties": false
+              },
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides the updated device object.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "uuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                  "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                  "key": "HUB-KEY-3",
+                  "serial": "HUB-SERIAL-3",
+                  "name": "Hub",
+                  "shortDescription": null,
+                  "isProvisioned": false,
+                  "isLinkedToUser": false,
+                  "isExternal": false,
+                  "channelId": "1",
+                  "privateKey": "LS0tLS1CRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQ0KVmVyc2lvbjogT3BlblBHUC5qcyB2NC40LjEwDQpDb21tZW50OiBodHRwczovL29wZW5wZ3Bqcy5vcmcNCg0KeGNDTUJGemJSOFlCQXJ3SXBGTUVSR0JNekx3QVN5c0VMODVDVHR5YmNXUTNaL1RBc1RmOHBhZEVXaGVIDQpjajFJN1ptRkNTcjR2dW5ST0UxT3E4ZVhyeW9nQThiQUxXdEI3YVZYQkZuSnJUSUtuQ21jOSs4VXBKYUkNCmtEVTJneHBHVGZtOUFCRUJBQUVBQXJzSFFxL3d0TlhIa0hjZk5BZ1hBMmNpTkltS0czRmNUMzNGYXQ4ag0KNTdVcGF4dTdrMUpEOUVONER5VElTYWFlUnN5WWt3UFYzN2Y4VDVmRjhmV2RNUDJ0K3JCbXJMZk9Ga0V1DQp0aU1JMWxJN1VZMVFZMStXVFhJdEFWNHhWYWJ4WXpSSFJxVmF0eFc1U0l2ZWFJVkpvMDgwZm5WcHlJckwNCm5tZ05iSjZHTTloRitaU01wNFZIdndGZUxOZmhKZGRNc0JENHlPZStjbmFtdWgxd2VOU2VjT0hEdWdTVg0KZy9kU1NzMXBsRGpKTlc0Y0ladHVmWU1CWGlndXVZMGtpVTlHZEZxSlJNckpXb3NDSlpxaUxUY2ZvOGhTDQpqTnQyVDFRbUh5Vk1OekFqRkVLL3NYYVBhYnpOSkRsaU1tWmhNR05sTFRjMk9XSXRNVEZsT1MwNFl6VTINCkxXVmxOelEzT1RBellUSXlOY0tOQkJBQkNBQWZCUUpjMjBmR0Jnc0pCd2dEQWdRVkNBb0NBeFlDQVFJWg0KQVFJYkF3SWVBUUFLQ1JEOWhxWGlDWGc4SjcvbkFya0Jsb0dIdG9hUjJoRUlqVGRmWHBSK29OMVFMRUZODQpKMXdaR2ozY1FqeWYzeDFNaHJBTUpMQjNBSnA1V1VyRzh2cXB4Ritzc0pxdFpFak5KR2RQTDY5cURnUDkNClZsOW41RTlxdkxsY0s0Z1BEN0dYaGo5VGVDTGV4OENNQkZ6YlI4WUJBcnNHbWFiTlNJQnRMVXpXZGlDYw0KUDIySTNpWUMwMm9DeXJmVzFTMUtOaDFVdFhJbVlFRmFsYmZ0RUtONGxMeE43S1FLNnlXNmg3TGp3d0NDDQpsKys3U0JmM0xGUnNKam9YSTlTUVVJd3hCejlKMnAyQ0JOeUFrUUZyQUJFQkFBRUFBcmtCcENNOTJGRlcNCjFIVE92d0RNMlZpN044SHI0Zlh5UzhYNnZYZE5oTGMyWVFmSlV4WHRHRjFyclQ5NHRDNUxuNWlyU2s4Rg0KL1E4Q200eHhyZEJlV3hWOC8xSUF5bm96czZsTzI0eDhCZ283RlFWeldXSGU5SUNCQVY0elZVa2dDT1NRDQowMS9vUHU1V21KYThHbU95akVRNXN5ZVgxNmxkSjRaWTZBa3ZHK1Qzb01PbEhJQytLUUZlSU9wWVMyaW4NCnlVNEU1cXkxUW9idjg3aFcwMkhJVXdYMml5Y0JYTm95dFozb3VkSzdNMkpYWVB2bmpYTUJYUmtKc01Xaw0KZEsya1RNQWRwaWZyRkVleXdTWlhwQjhlVld1cVpDWkRxOGdXYkUyR3ErZXkwaVBuMkhlOWJtM0Nkd1FZDQpBUWdBQ1FVQ1hOdEh4Z0liREFBS0NSRDlocVhpQ1hnOEozZEtBcndJVTBxSTFidzR6VlZxVHg3TCtYb28NCitiU3BzSmdjQVQrSXJ5Yk9UaFhuVWszNXZmZklHR3l2L1VvcXJ6K1R1VWNtY1l0TXliTXB2eXp6L0tXdQ0KS0tYUXpFTmowMjUzRlMra0IrV0dHTEZ6MGluV09ScW1vaGpHDQo9V2hVeA0KLS0tLS1FTkQgUEdQIFBSSVZBVEUgS0VZIEJMT0NLLS0tLS0NCg==",
+                  "publicKey": "LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjQuMTANCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp4bVVFWE50SHhnRUN2QWlrVXdSRVlFek12QUJMS3dRdnprSk8zSnR4WkRkbjlNQ3hOL3lscDBSYUY0ZHkNClBVanRtWVVKS3ZpKzZkRTRUVTZyeDVldktpQUR4c0F0YTBIdHBWY0VXY210TWdxY0taejM3eFNrbG9pUQ0KTlRhREdrWk4rYjBBRVFFQUFjMGtPV0l5Wm1Fd1kyVXROelk1WWkweE1XVTVMVGhqTlRZdFpXVTNORGM1DQpNRE5oTWpJMXdvMEVFQUVJQUI4RkFsemJSOFlHQ3drSENBTUNCQlVJQ2dJREZnSUJBaGtCQWhzREFoNEINCkFBb0pFUDJHcGVJSmVEd252K2NDdVFHV2dZZTJocEhhRVFpTk4xOWVsSDZnM1ZBc1FVMG5YQmthUGR4Qw0KUEovZkhVeUdzQXdrc0hjQW1ubFpTc2J5K3FuRVg2eXdtcTFrU00wa1owOHZyMm9PQS8xV1gyZmtUMnE4DQp1VndyaUE4UHNaZUdQMU40SXQ3T1pRUmMyMGZHQVFLN0JwbW16VWlBYlMxTTFuWWduRDl0aU40bUF0TnENCkFzcTMxdFV0U2pZZFZMVnlKbUJCV3BXMzdSQ2plSlM4VGV5a0N1c2x1b2V5NDhNQWdwZnZ1MGdYOXl4VQ0KYkNZNkZ5UFVrRkNNTVFjL1NkcWRnZ1RjZ0pFQmF3QVJBUUFCd25jRUdBRUlBQWtGQWx6YlI4WUNHd3dBDQpDZ2tRL1lhbDRnbDRQQ2QzU2dLOENGTktpTlc4T00xVmFrOGV5L2w2S1BtMHFiQ1lIQUUvaUs4bXprNFYNCjUxSk4rYjMzeUJoc3IvMUtLcTgvazdsSEpuR0xUTW16S2I4czgveWxyaWlsME14RFk5TnVkeFV2cEFmbA0KaGhpeGM5SXAxamthcHFJWXhnPT0NCj0xN2tjDQotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQo=",
+                  "networkUuid": null,
+                  "securityType": "BASIC",
+                  "claimCode": "MWWB29",
+                  "avatarUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAmBJREFUeAHtmr1KA0EQx2dyOWNE8KMTbBUhkAgRbLW2tPJFfAgfwV5S+QwKVgEDKgQkYiOKYOEHaOJ5mvWGeE1wNgm7kl1vDkLI7N3s//+byV0xByCHEBACQkAICAEhIASEQDYJoA3bzdLG9Gf8sp5DXFCqO2Ujp2kOxFy7q9R9Ppypl5rHr1w+YwBkXsXP212AArfJOOM5gAjD2UMOQrJudlDlXTVPzkgbaeRcGgOgtueSuxLXaTQG4Mp/Xgdbp9EYgG5jH9bMASC8+WCU02gMIMgHJ+AxBOPHIEf2r+Kn1Wo4Gxfm2nFnBb7UyrD7lFtn+7+dm/8t6HJsrdGIE30P9DlbrlwHGGzqbnKDvGgBXJXXFzvvH3uIsKGUcuJxh4j3SsFxcXJid+mifptAOMoBbg0yyq2z9wAy/x5F5wBqxxXzZKKnRe2QNtK42jq/gwAvOYOD4iwAqnxCen5QgnGtkzbSSPtPhUX7AKjtx2Vu2H1Tjc9h9DTsNf3nsR3gUtv3i05/pxp/boxpeKRvFsBIWTw+WQB4XDwr0qUDrGD0OIl0gMfFsyJdOsAKRo+TSAd4XDwr0qUDrGD0OIl0gMfFsyI9Ex1Ak2KOViYA0Jj8/wNghjNJhSN6R+DfA+ifUFHbK8Br3bsBBEU7F+CouRgvNRs3ia6DUbVl4h6ggyIAdHSysCYdkIUq6zyyHUBTWN2FLqzZ0MgCoBG0CyZ1GmxoZAHQ/D0ZPj7qBIxzjbSRRlMNLAB6+WCyUKgAYM1Gq5kKTa/vacEaaSONaVy+hYAQEAJCQAgIASEgBITAaAS+ATgZpghBQ9SGAAAAAElFTkSuQmCC",
+                  "deviceType": {
+                    "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "enum": "ENUM",
+                    "name": "name",
+                    "shortDescription": null,
+                    "proxySendingAllowed": true
+                  },
+                  "settings": []
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/command-types/:commandTypeUuid": {
+      "post": {
+        "summary": "Create a command instance via a device.",
+        "sdkName": "createDeviceCommandInstanceEmbedded",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commandTypeUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The request body is an empty object.",
+                "additionalProperties": false
+              },
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides the created command instance.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "uuid": "9d748764-769b-11e9-8c56-ee747903a225",
+                  "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                  "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                  "batchReferenceUuid": null,
+                  "timestamp": 1557874634,
+                  "isUnexecuted": true,
+                  "isUncleared": true,
+                  "isFlagged": false,
+                  "setExecutedTimestamp": null,
+                  "setClearedTimestamp": null,
+                  "setFlaggedTimestamp": null,
+                  "name": null,
+                  "_data": null,
+                  "valid": true,
+                  "created": "2019-05-14T19:57:14.000Z",
+                  "initiatorId": null,
+                  "creator": "9b2fa0ce-769b-11e9-8c56-ee747903a225"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/data": {
+      "post": {
+        "summary": "Post data to the cloud.",
+        "sdkName": "postData",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "packets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "timestamp": {
+                          "type": "integer"
+                        },
+                        "deviceUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "networkUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "deviceTypeUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        }
+                      },
+                      "required": ["data"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "notifications": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "timestamp": {
+                          "type": "integer"
+                        },
+                        "deviceUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "notificationUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "deviceTypeUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {},
+                          "additionalProperties": true
+                        }
+                      },
+                      "required": ["data"],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": ["packets"],
+                "additionalProperties": false
+              },
+              "example": {
+                "packets": [
+                  {
+                    "timestamp": 1557874634,
+                    "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "data": {
+                      "voltage": 14,
+                      "temperature": 100,
+                      "device_message": "SOME STRING"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides success status.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "activeNotificationInstances": {
+                    "device": [],
+                    "network": []
+                  },
+                  "unexecutedCommands": {
+                    "device": [],
+                    "network": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/settings": {
+      "post": {
+        "summary": "Upsert settings for a device.",
+        "sdkName": "upsertDeviceSettings",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "settings": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string"
+                        },
+                        "unit": {
+                          "type": "string"
+                        },
+                        "isNumber": {
+                          "type": "boolean"
+                        },
+                        "settingTypeUuid": {
+                          "type": "string",
+                          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "unit",
+                        "isNumber",
+                        "settingTypeUuid"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": ["settings"],
+                "additionalProperties": false
+              },
+              "example": {
+                "settings": [
+                  {
+                    "settingTypeUuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                    "value": "1",
+                    "isNumber": true,
+                    "unit": "V"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides success status and a list of current settings.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "settings": [
+                    {
+                      "uuid": "9d516842-769b-11e9-8c56-ee747903a225",
+                      "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                      "unit": "V",
+                      "value": 1,
+                      "isPublic": true,
+                      "settingTypeUuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                      "settingType": {
+                        "uuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                        "enum": "MY_Setting_TYPE",
+                        "name": "My Setting Type",
+                        "shortDescription": null,
+                        "description": "description",
+                        "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                        "isPublic": true
+                      },
+                      "_data": {}
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      },
+      "get": {
+        "summary": "Get a list of settings for a device.",
+        "sdkName": "getDeviceSettingList",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of settings.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "settings": [
+                    {
+                      "uuid": "9d516842-769b-11e9-8c56-ee747903a225",
+                      "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                      "unit": "V",
+                      "value": 1,
+                      "isPublic": true,
+                      "settingTypeUuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                      "settingType": {
+                        "uuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                        "enum": "MY_Setting_TYPE",
+                        "name": "My Setting Type",
+                        "shortDescription": null,
+                        "description": "description",
+                        "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                        "isPublic": true
+                      },
+                      "_data": {}
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/unexecuted-commands": {
+      "get": {
+        "summary": "Get a list of unexecuted command instances for a device.",
+        "sdkName": "getDeviceUnexecutedCommandInstanceList",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of unexecuted commands.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success",
+                  "commands": [
+                    {
+                      "uuid": "9c37a91c-769b-11e9-8c56-ee747903a225",
+                      "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                      "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                      "batchReferenceUuid": "47a375d3-6c76-4bca-8d90-ddfc1eaec0d0",
+                      "timestamp": 1557874632,
+                      "isUnexecuted": true,
+                      "isUncleared": true,
+                      "isFlagged": false,
+                      "setExecutedTimestamp": null,
+                      "setClearedTimestamp": null,
+                      "setFlaggedTimestamp": null,
+                      "name": null,
+                      "_data": [
+                        {
+                          "value": 1,
+                          "commandFieldUuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225"
+                        },
+                        {
+                          "value": 2,
+                          "commandFieldUuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225"
+                        }
+                      ],
+                      "valid": true,
+                      "created": "2019-05-14T19:57:12.000Z",
+                      "initiatorId": null,
+                      "creator": "986b25b6-769b-11e9-8c56-ee747903a225",
+                      "commandType": {
+                        "uuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                        "enum": "MY_COMMAND_TYPE",
+                        "name": "My Command Type",
+                        "shortDescription": null,
+                        "description": "description",
+                        "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                        "commandFields": [
+                          {
+                            "uuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225",
+                            "title": "title",
+                            "shortDescription": null,
+                            "actionText": null,
+                            "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                            "enum": "MY_COMMAND_FIELD",
+                            "name": "My Command Field"
+                          }
+                        ],
+                        "deviceType": {
+                          "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                          "enum": "ENUM",
+                          "name": "name",
+                          "shortDescription": null,
+                          "proxySendingAllowed": true
+                        }
+                      }
+                    },
+                    {
+                      "uuid": "9c3f3218-769b-11e9-8c56-ee747903a225",
+                      "deviceUuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                      "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                      "batchReferenceUuid": "47a375d3-6c76-4bca-8d90-ddfc1eaec0d0",
+                      "timestamp": 1557874632,
+                      "isUnexecuted": true,
+                      "isUncleared": true,
+                      "isFlagged": false,
+                      "setExecutedTimestamp": null,
+                      "setClearedTimestamp": null,
+                      "setFlaggedTimestamp": null,
+                      "name": null,
+                      "_data": [
+                        {
+                          "value": 3,
+                          "commandFieldUuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225"
+                        },
+                        {
+                          "value": 4,
+                          "commandFieldUuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225"
+                        }
+                      ],
+                      "valid": true,
+                      "created": "2019-05-14T19:57:12.000Z",
+                      "initiatorId": null,
+                      "creator": "986b25b6-769b-11e9-8c56-ee747903a225",
+                      "commandType": {
+                        "uuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                        "enum": "MY_COMMAND_TYPE",
+                        "name": "My Command Type",
+                        "shortDescription": null,
+                        "description": "description",
+                        "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                        "commandFields": [
+                          {
+                            "uuid": "9bfe4dd4-769b-11e9-8c56-ee747903a225",
+                            "title": "title",
+                            "shortDescription": null,
+                            "actionText": null,
+                            "commandTypeUuid": "9aff6e40-769b-11e9-8c56-ee747903a225",
+                            "enum": "MY_COMMAND_FIELD",
+                            "name": "My Command Field"
+                          }
+                        ],
+                        "deviceType": {
+                          "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                          "enum": "ENUM",
+                          "name": "name",
+                          "shortDescription": null,
+                          "proxySendingAllowed": true
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/devices/:deviceUuid/upload-log-file": {
+      "post": {
+        "summary": "Upload zip file of device logs.",
+        "sdkName": "uploadDeviceLogs",
+        "parameters": [
+          {
+            "name": "deviceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The file is uploaded as form data.",
+                "additionalProperties": false
+              },
+              "example": {}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides success status.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/firmware/:deviceTypeUuid/:version": {
+      "get": {
+        "summary": "Get a desired version of a firmware record for a given device type.",
+        "sdkName": "getDeviceTypeFirmwareRecord",
+        "parameters": [
+          {
+            "name": "deviceTypeUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response provides a firmware record.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "uuid": "9c6491ac-769b-11e9-8c56-ee747903a225",
+                  "enum": "FIRMWARE",
+                  "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                  "previousVersion": "arm-0.0",
+                  "version": "arm-0.1",
+                  "timestamp": null,
+                  "filetype": "docker-image",
+                  "imageData": null,
+                  "imageUrl": "www.image-url.io",
+                  "registryUsername": "user",
+                  "registryAccessToken": "accessToken",
+                  "_data": null,
+                  "valid": true,
+                  "created": "2019-05-14T19:57:12.000Z",
+                  "creator": "986b25b6-769b-11e9-8c56-ee747903a225"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/key": {
+      "get": {
+        "summary": "Get base64 encoded public key from the server for use in RSA scheme.",
+        "sdkName": "getPublicCloudKey",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides a base64 encoded public key.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "key": "LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjEuMA0KQ29tbWVudDogaHR0cHM6Ly9vcGVucGdwanMub3JnDQoNCnhtVUVXN1VEQVFFQ3ZBaDNxdjVvMGhtOHpudnhCUGtuWG9zcVZEdm9XNWpVbUtzTW1Yck9RbWwzWjJUTw0Kdko4U1dQejA5ZkF0aW9XWXdwMS9JQUdMcnl2Y3g5MVN5dS9Bb0ErYllRWWpYY0oxT3lZRW4rai8wa2tjDQo0NDJ5QkJxR3o1MEFFUUVBQWMwRlkyeHZkV1RDalFRUUFRZ0FLUVVDVzdVREFRWUxDUWNJQXdJSkVQcWoNCmJScWZrQnVKQkJVSUNnSURGZ0lCQWhrQkFoc0RBaDRCQUFDNGZBSzdCNCtnWDNkZ3BmMnZ1OTkvSVROMg0KUWFFMndLeVc3S2NTVDkxUzE2S1VXMDFlSHBYVnRjMHBNVjJmL0lLdTVFUm5kYkJYK0VPMWdPeDEzSmFFDQpobFRVamZ2cEpQOEMyMEZwaEJvc2N2RHQwM1BEaE9MVTgxYVA1YzVsQkZ1MUF3RUJBcnNIVGFzWEJXbVQNCjhkS3U4d253WVFFb0FzbzRUeUdlRHBxTFpGM1pYbHFra3puKzBoeTZDMXdWcGNaaHFleERUaG15OFlmSg0KNGZ3Z21IVmgxcGxVdk9zNjZvZitaNm8vOU9KZEFxOFRqVU44WVpSSE1nZDlQN0tYQUJFQkFBSENkd1FZDQpBUWdBRXdVQ1c3VURBUWtRK3FOdEdwK1FHNGtDR3d3QUFORzRBcmtBaXV1a2JkQWtpL3QvOXZOSmpIZnUNCkVFVzMzSE1SVWg3RnlzVXkvWU1rempseEF1QTR5QUtMcU5heW9TZnBaNjRMTWNremx1NVhueHB0TEJ3Qw0KazRISnVWRldoaTRRc1JoVEJhU09rSER3MDAyTXZXazF5U1B2DQo9TmJyNg0KLS0tLS1FTkQgUEdQIFBVQkxJQyBLRVkgQkxPQ0stLS0tLQ0K"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/me": {
+      "get": {
+        "summary": "Get information about the device.",
+        "sdkName": "getMe",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides device information.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "uuid": "9b2fa0ce-769b-11e9-8c56-ee747903a225",
+                  "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                  "key": "HUB-KEY-3",
+                  "serial": "HUB-SERIAL-3",
+                  "name": "Hub",
+                  "shortDescription": null,
+                  "isProvisioned": false,
+                  "isLinkedToUser": false,
+                  "isExternal": false,
+                  "channelId": null,
+                  "privateKey": "LS0tLS1CRUdJTiBQR1AgUFJJVkFURSBLRVkgQkxPQ0stLS0tLQ0KVmVyc2lvbjogT3BlblBHUC5qcyB2NC40LjEwDQpDb21tZW50OiBodHRwczovL29wZW5wZ3Bqcy5vcmcNCg0KeGNDTUJGemJSOFlCQXJ3SXBGTUVSR0JNekx3QVN5c0VMODVDVHR5YmNXUTNaL1RBc1RmOHBhZEVXaGVIDQpjajFJN1ptRkNTcjR2dW5ST0UxT3E4ZVhyeW9nQThiQUxXdEI3YVZYQkZuSnJUSUtuQ21jOSs4VXBKYUkNCmtEVTJneHBHVGZtOUFCRUJBQUVBQXJzSFFxL3d0TlhIa0hjZk5BZ1hBMmNpTkltS0czRmNUMzNGYXQ4ag0KNTdVcGF4dTdrMUpEOUVONER5VElTYWFlUnN5WWt3UFYzN2Y4VDVmRjhmV2RNUDJ0K3JCbXJMZk9Ga0V1DQp0aU1JMWxJN1VZMVFZMStXVFhJdEFWNHhWYWJ4WXpSSFJxVmF0eFc1U0l2ZWFJVkpvMDgwZm5WcHlJckwNCm5tZ05iSjZHTTloRitaU01wNFZIdndGZUxOZmhKZGRNc0JENHlPZStjbmFtdWgxd2VOU2VjT0hEdWdTVg0KZy9kU1NzMXBsRGpKTlc0Y0ladHVmWU1CWGlndXVZMGtpVTlHZEZxSlJNckpXb3NDSlpxaUxUY2ZvOGhTDQpqTnQyVDFRbUh5Vk1OekFqRkVLL3NYYVBhYnpOSkRsaU1tWmhNR05sTFRjMk9XSXRNVEZsT1MwNFl6VTINCkxXVmxOelEzT1RBellUSXlOY0tOQkJBQkNBQWZCUUpjMjBmR0Jnc0pCd2dEQWdRVkNBb0NBeFlDQVFJWg0KQVFJYkF3SWVBUUFLQ1JEOWhxWGlDWGc4SjcvbkFya0Jsb0dIdG9hUjJoRUlqVGRmWHBSK29OMVFMRUZODQpKMXdaR2ozY1FqeWYzeDFNaHJBTUpMQjNBSnA1V1VyRzh2cXB4Ritzc0pxdFpFak5KR2RQTDY5cURnUDkNClZsOW41RTlxdkxsY0s0Z1BEN0dYaGo5VGVDTGV4OENNQkZ6YlI4WUJBcnNHbWFiTlNJQnRMVXpXZGlDYw0KUDIySTNpWUMwMm9DeXJmVzFTMUtOaDFVdFhJbVlFRmFsYmZ0RUtONGxMeE43S1FLNnlXNmg3TGp3d0NDDQpsKys3U0JmM0xGUnNKam9YSTlTUVVJd3hCejlKMnAyQ0JOeUFrUUZyQUJFQkFBRUFBcmtCcENNOTJGRlcNCjFIVE92d0RNMlZpN044SHI0Zlh5UzhYNnZYZE5oTGMyWVFmSlV4WHRHRjFyclQ5NHRDNUxuNWlyU2s4Rg0KL1E4Q200eHhyZEJlV3hWOC8xSUF5bm96czZsTzI0eDhCZ283RlFWeldXSGU5SUNCQVY0elZVa2dDT1NRDQowMS9vUHU1V21KYThHbU95akVRNXN5ZVgxNmxkSjRaWTZBa3ZHK1Qzb01PbEhJQytLUUZlSU9wWVMyaW4NCnlVNEU1cXkxUW9idjg3aFcwMkhJVXdYMml5Y0JYTm95dFozb3VkSzdNMkpYWVB2bmpYTUJYUmtKc01Xaw0KZEsya1RNQWRwaWZyRkVleXdTWlhwQjhlVld1cVpDWkRxOGdXYkUyR3ErZXkwaVBuMkhlOWJtM0Nkd1FZDQpBUWdBQ1FVQ1hOdEh4Z0liREFBS0NSRDlocVhpQ1hnOEozZEtBcndJVTBxSTFidzR6VlZxVHg3TCtYb28NCitiU3BzSmdjQVQrSXJ5Yk9UaFhuVWszNXZmZklHR3l2L1VvcXJ6K1R1VWNtY1l0TXliTXB2eXp6L0tXdQ0KS0tYUXpFTmowMjUzRlMra0IrV0dHTEZ6MGluV09ScW1vaGpHDQo9V2hVeA0KLS0tLS1FTkQgUEdQIFBSSVZBVEUgS0VZIEJMT0NLLS0tLS0NCg==",
+                  "publicKey": "LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjQuMTANCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp4bVVFWE50SHhnRUN2QWlrVXdSRVlFek12QUJMS3dRdnprSk8zSnR4WkRkbjlNQ3hOL3lscDBSYUY0ZHkNClBVanRtWVVKS3ZpKzZkRTRUVTZyeDVldktpQUR4c0F0YTBIdHBWY0VXY210TWdxY0taejM3eFNrbG9pUQ0KTlRhREdrWk4rYjBBRVFFQUFjMGtPV0l5Wm1Fd1kyVXROelk1WWkweE1XVTVMVGhqTlRZdFpXVTNORGM1DQpNRE5oTWpJMXdvMEVFQUVJQUI4RkFsemJSOFlHQ3drSENBTUNCQlVJQ2dJREZnSUJBaGtCQWhzREFoNEINCkFBb0pFUDJHcGVJSmVEd252K2NDdVFHV2dZZTJocEhhRVFpTk4xOWVsSDZnM1ZBc1FVMG5YQmthUGR4Qw0KUEovZkhVeUdzQXdrc0hjQW1ubFpTc2J5K3FuRVg2eXdtcTFrU00wa1owOHZyMm9PQS8xV1gyZmtUMnE4DQp1VndyaUE4UHNaZUdQMU40SXQ3T1pRUmMyMGZHQVFLN0JwbW16VWlBYlMxTTFuWWduRDl0aU40bUF0TnENCkFzcTMxdFV0U2pZZFZMVnlKbUJCV3BXMzdSQ2plSlM4VGV5a0N1c2x1b2V5NDhNQWdwZnZ1MGdYOXl4VQ0KYkNZNkZ5UFVrRkNNTVFjL1NkcWRnZ1RjZ0pFQmF3QVJBUUFCd25jRUdBRUlBQWtGQWx6YlI4WUNHd3dBDQpDZ2tRL1lhbDRnbDRQQ2QzU2dLOENGTktpTlc4T00xVmFrOGV5L2w2S1BtMHFiQ1lIQUUvaUs4bXprNFYNCjUxSk4rYjMzeUJoc3IvMUtLcTgvazdsSEpuR0xUTW16S2I4czgveWxyaWlsME14RFk5TnVkeFV2cEFmbA0KaGhpeGM5SXAxamthcHFJWXhnPT0NCj0xN2tjDQotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tDQo=",
+                  "networkUuid": null,
+                  "securityType": "BASIC",
+                  "claimCode": "MWWB29",
+                  "avatarUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAmBJREFUeAHtmr1KA0EQx2dyOWNE8KMTbBUhkAgRbLW2tPJFfAgfwV5S+QwKVgEDKgQkYiOKYOEHaOJ5mvWGeE1wNgm7kl1vDkLI7N3s//+byV0xByCHEBACQkAICAEhIASEQDYJoA3bzdLG9Gf8sp5DXFCqO2Ujp2kOxFy7q9R9Ppypl5rHr1w+YwBkXsXP212AArfJOOM5gAjD2UMOQrJudlDlXTVPzkgbaeRcGgOgtueSuxLXaTQG4Mp/Xgdbp9EYgG5jH9bMASC8+WCU02gMIMgHJ+AxBOPHIEf2r+Kn1Wo4Gxfm2nFnBb7UyrD7lFtn+7+dm/8t6HJsrdGIE30P9DlbrlwHGGzqbnKDvGgBXJXXFzvvH3uIsKGUcuJxh4j3SsFxcXJid+mifptAOMoBbg0yyq2z9wAy/x5F5wBqxxXzZKKnRe2QNtK42jq/gwAvOYOD4iwAqnxCen5QgnGtkzbSSPtPhUX7AKjtx2Vu2H1Tjc9h9DTsNf3nsR3gUtv3i05/pxp/boxpeKRvFsBIWTw+WQB4XDwr0qUDrGD0OIl0gMfFsyJdOsAKRo+TSAd4XDwr0qUDrGD0OIl0gMfFsyI9Ex1Ak2KOViYA0Jj8/wNghjNJhSN6R+DfA+ifUFHbK8Br3bsBBEU7F+CouRgvNRs3ia6DUbVl4h6ggyIAdHSysCYdkIUq6zyyHUBTWN2FLqzZ0MgCoBG0CyZ1GmxoZAHQ/D0ZPj7qBIxzjbSRRlMNLAB6+WCyUKgAYM1Gq5kKTa/vacEaaSONaVy+hYAQEAJCQAgIASEgBITAaAS+ATgZpghBQ9SGAAAAAElFTkSuQmCC",
+                  "deviceType": {
+                    "uuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "enum": "ENUM",
+                    "name": "name",
+                    "shortDescription": null,
+                    "proxySendingAllowed": true
+                  },
+                  "settings": []
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/notifications": {
+      "get": {
+        "summary": "Get a list of available notifications.",
+        "sdkName": "getNotificationListEmbedded",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of notifications.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "uuid": "9b19cde4-769b-11e9-8c56-ee747903a225",
+                    "enum": "MY_NOTIFICATION",
+                    "name": "My Notification",
+                    "shortDescription": null,
+                    "actionText": null,
+                    "description": null,
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "severityType": {
+                      "uuid": "9ae3430a-769b-11e9-8c56-ee747903a225",
+                      "enum": "HIGH",
+                      "name": "high",
+                      "shortDescription": null,
+                      "actionText": null,
+                      "description": null
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/notification-instances/:notificationInstanceUuid/inactive": {
+      "patch": {
+        "summary": "Set notification instance inactive.",
+        "sdkName": "setNotificationInstanceInactive",
+        "parameters": [
+          {
+            "name": "notificationInstanceUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "description": "Provide a unix timestamp for when the notification was set as inactive.",
+                    "type": "integer"
+                  }
+                },
+                "required": ["timestamp"],
+                "additionalProperties": false
+              },
+              "example": {
+                "timestamp": 1557874633
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response provides success status.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/setting-types": {
+      "get": {
+        "summary": "Get a list of available setting types.",
+        "sdkName": "getSettingTypeListEmbedded",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The response provides a list of setting types.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "uuid": "9c75ffc8-769b-11e9-8c56-ee747903a225",
+                    "enum": "MY_Setting_TYPE",
+                    "name": "My Setting Type",
+                    "shortDescription": null,
+                    "description": "description",
+                    "deviceTypeUuid": "9af46bee-769b-11e9-8c56-ee747903a225",
+                    "isPublic": true
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    },
+    "/embedded/token/asymmetric": {
+      "post": {
+        "summary": "Get device token based on encrypted credentials.",
+        "sdkName": "getDeviceTokenAsymmetric",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credentials": {
+                    "description": "The credentials must be base64 encoded and encrypted using an RSA scheme.",
+                    "type": "string",
+                    "minLength": 2
+                  }
+                },
+                "required": ["credentials"],
+                "additionalProperties": false
+              },
+              "example": {
+                "credentials": "LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjQuMTANCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp3V1FES1NJRHJWRnErQzRCQXJrQXVobXBUWDZETXdBNVJ3MWVCOWVCQjhRK2o3K25rTkE2QWs2cEh0ZE0NCnVBUkRRR2VwY2VIVDFOMmN6Yk11cEhPWENYbThLSXc5QUxHcS9XUE9MRUZVTkdzNnZhMzhheEdNbjkrYQ0KNXhPNjRKaklTaThvd3g5bTBzQkFBWC9LRUJCeCtvbDNpRUp2UVQ2enhGckNWTmFWNlM0MVR4T2Nrb0FmDQppZDM2eFNMa1pzNkNGak5IUFZFNG5BYjlQTVEybnlmWVZPNXJkbzMrTnF2UGh3ZVNkbzcyUG5BSG5LMVoNCkNrbk16MjNkRlBzYTFCeis5UTg5RWlwZFVsZ2tsK0FlQkRqUlFMaEFxalBucGpRQ0hVQU1md2owejFFVw0KKzBhOE92YUtTTGtWQmNMRkpOWUloYlB2MVFzR1NmRVQ4RXNxVndrdmxKaUlzbGxFWlJESmxIWWdqRldUDQo1N1UrOEVMbVdqa2pCem53VHl6T2tpdUpaa2VGRS9GNHhrUDZ5N0o0alFVcWZkRHQyU09hMFVqV3JLWGENCnE2WkYzOXplaVhoWXdaaGVWM2NUOGJCUXdwMkJiTDhxaVMzK25OQXhsb0RlWk9vZVdmd3Nmb0tnOVFRZg0KaHc9PQ0KPUFCN0cNCi0tLS0tRU5EIFBHUCBNRVNTQUdFLS0tLS0NCg=="
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The response is a base64 encoded RSA encrypted device uuid/key, token, and expiration time.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "credentials": "LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tDQpWZXJzaW9uOiBPcGVuUEdQLmpzIHY0LjQuMTANCkNvbW1lbnQ6IGh0dHBzOi8vb3BlbnBncGpzLm9yZw0KDQp3V1FENG1xbUlEV1pOVklCQXJzRWx3czNnOWMwMGdRai9sVkdnMVI5MGhNaUxOQUtTcnZaUzNMWW9DZUINCm02cmk5U1hzWVQyakFvZDN6cnlHMmg2U2RJZkhhcEJQRDl3RDl5bXhYVWY0QVZ2aFhiRUFORXloZ1NSNA0KYiszZ1VKOWxPYjUzL2h6ZzBzRWJBUUx1TDRiSDFocWxnNThzU09Qa1p6Q2tDZmZYR0htbzg1YUNMOXIyDQp4TmQrQWxGc01aQ25VT04rYTB6VXRvSTJGQkNYNCtCTkF2bzRaejA4NHg3cjlBZXJaaTBScHJLaXduTEoNCjlEaXJpWDZDZ1Nac3pTVHZzUE8vQnVyTVRFTVpwVkI5S1ZJZFVDLzF3a2Q3U1d4OENHWW9YUzl1RDZvbw0KSDNYNkgzOU1tL0c4L0F4c2hJUkNZVmhaVTdibHFjczd4S2ZDdDNBNUVFNG5VeFVuZG1oWUM3WjF4Q0xkDQpmQW5rTFYwM3Iyb3JrTjFnVWI3aVZ5bDZQUTRLYUQybmZDRFBqa3dyTnVDb2ZIb0JES0pBa095akkzYlcNCmdzOUxtd3lrNS9YR3VIdmVXYXc0cmZ2eVhraG5MS0RXclpZS2pCSHhxS3hGSEpFYzJYckJ4T3h4ZkIrZA0KVCtjdldWYkdQR2FwYUdOZ0ZtdE55R25xRFJXQi9uTkpjKzVQLzB1dEhwbVEvbHJYeXBpS2kydUhvVmwyDQpjZ2pHU3I2SzJhbGkvQkM1dllCUTZncWpGNzhycUM4dmtpeU1VeEgwb0cray9sNUlpN0h4aFFvdm5EREMNCkY5VEJadXhUbUQyaXlzWFN5RUpTYklaWGxPL29ZZFRLWGtaM1VzTkRVTWowb0htLzNod0d3Zy9CWm5keg0KcWtlVXIwdG1zS0ttUVFXaFkySGgrQS9PKzVCUnJmL1ZycHhsUGVzd2xkTlpRRGYyMG40TDFITlA5Qlg0DQptK0lFeWJOTUJkbjNLcGJkbXFTQzZlUzVjK1RKeC9ZZjgyRmE5SW8zd3NFbkR4YkxWRkNObWc9PQ0KPU1NK3QNCi0tLS0tRU5EIFBHUCBNRVNTQUdFLS0tLS0NCg=="
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Embedded"]
+      }
+    }
+  }
+}
