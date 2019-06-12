@@ -17,8 +17,8 @@ pip install iotery-embedded-python-sdk
 And finally, some simple example usage:
 
 ```python
-from Iotery import Iotery
-TEAM_ID="265fcb74-8889-11e9-8452-d283610663ec" # team ID found on the dashboard: https://iotery.io/system
+from iotery_embedded_python_sdk import Iotery
+TEAM_ID="265fcb74-8889-11f9-8452-d283610663ec" # team ID found on the dashboard: https://iotery.io/system
 iotery = Iotery()
 d = iotery.getDeviceTokenBasic(data={"key": "thermal_sensor_001",
                                      "serial": "THERMAL_SENSOR_001", "secret": "thermal_sensor_001_secret", "teamUuid": TEAM_ID})
@@ -41,18 +41,19 @@ The generalized syntax for creating resources in iotery.io python sdk looks like
 iotery.methodName(inputParameter="parameter", data={ "data": "variables" })
 ```
 
-For example, to create a device, the javascript would look like
+For example, to create a device, the python would look like
 
 ```python
-createDevice(
-  deviceTypeUuid="a-valid-device-type-uuid",
-  data={ "name": "My Device", "other": "parameter" }
+createDeviceCommandInstanceEmbedded(
+  deviceUuid="a-valid-device-type-uuid",
+  commandTypeUuid="a-valid-command-type-uuid",
+  data={}
 )
 ```
 
-where `createDevice` maps to `methodName`, `deviceTypeUuid` maps to `inputParameter`, and `name` and `other` map to the dictonary `{data : "variables"}` in the generalized form given above.
+where `createDeviceCommandInstanceEmbedded` maps to `methodName`, `deviceUuid` maps to `inputParameter`, and `data={}` and maps to the dictonary `{data : "variables"}` in the generalized form given above.
 
-The available resource creation methods are
+The available resource creation (POST) methods are
 
 |            `methodName`             |                                                                                  `input`                                                                                  |                                                                link                                                                |              `description`              |
 | :---------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------: |
@@ -75,13 +76,14 @@ iotery.methodName(inputParameter="parameter", opts={"query":"parameter"})
 For example, to get a device by it's unique identifier `uuid`, the python would look like
 
 ```python
-getDeviceByUuid(
+getDeviceTypeFirmwareRecord(
   deviceUuid="a-valid-device-uuid",
+  version="valid version",
   opts={ "limit": 1 }
 )
 ```
 
-where `getDeviceByUuid` maps to `methodName`, `deviceUuid` maps to `inputParameter`, and `{ "limit": 1 }` maps to the dictonary `{"query" : "parameters"}` in the generalized form given above.
+where `getDeviceTypeFirmwareRecord` maps to `methodName`, `deviceUuid` maps to `inputParameter`, and `{ "limit": 1 }` maps to the dictonary `{"query" : "parameters"}` in the generalized form given above.
 
 > The `limit` option is for instructive purposes only. By definition, a `uuid` is unique and so there will never be more than one device for a given `uuid`.
 
@@ -108,16 +110,17 @@ The generalized syntax for updating resources in iotery.io python sdk looks like
 iotery.methodName(inputParameter="parameter", data={ "data": "variables" })
 ```
 
-For example, to update a device type, the javascript would look like
+For example, to update a device type, the code would look like
 
 ```python
-updateDevice(
-  deviceTypeUuid="a-valid-device-type-uuid",
-  data={ "name": "My New Name" }
+updateDeviceChannel(
+  deviceUuid="a-valid-device-type-uuid",
+  channelId="1",
+  data={}
 )
 ```
 
-where `updateDevice` maps to `methodName`, `deviceTypeUuid` maps to `inputParameter`, and `{ "name": "My New Name" }` maps to the dictonary `{data : "variables"}` in the generalized form given above.
+where `updateDeviceChannel` maps to `methodName`, `deviceUuid` maps to `inputParameter`, and `{}` maps to the dictonary `{data : "variables"}` in the generalized form given above (if there was a body).
 
 The available resource creation methods are
 
