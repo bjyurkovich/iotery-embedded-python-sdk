@@ -4,3 +4,4 @@ dist
 upload.sh
 .vscode
 build
+node_modules
