@@ -5,7 +5,7 @@ with open("./iotery_embedded_python_sdk/README.md", "r") as fh:
 
 setuptools.setup(
     name="iotery-embedded-python-sdk",
-    version="0.1.7",
+    version="0.1.8",
     author="bjyurkovich",
     author_email="bj.yurkovich@technicity.io",
     description="iotery.io embedded python SDK",
