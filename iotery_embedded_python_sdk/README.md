@@ -59,10 +59,12 @@ The available resource creation (POST) methods are
 |:-----------:|:-----------:|:-----------:|:-----------:|
 | getDeviceTokenBasic |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1basic~1get-token/post) | Get token for device via key, serial, and secret. |
 | reportAlreadyExecutedCommands |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1command-instances~1executed/post) | Report an already executed set of commands to the server. |
+| createDevice |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices/post) | Create a device. |
 | createDeviceCommandInstance | deviceUuid,commandTypeUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices~1:deviceUuid~1command-types~1:commandTypeUuid/post) | Create a command instance via a device. |
 | postData | deviceUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices~1:deviceUuid~1data/post) | Post data to the cloud. |
 | upsertDeviceSettings | deviceUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices~1:deviceUuid~1settings/post) | Upsert settings for a device. |
 | uploadDeviceLogs | deviceUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices~1:deviceUuid~1upload-log-file/post) | Upload zip file of device logs. |
+| provisionNetwork |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1provision-network/post) | Provision a network. |
 | getDeviceTokenAsymmetric |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1token~1asymmetric/post) | Get device token based on encrypted credentials. |
 
 ### Reading Resources
@@ -102,6 +104,7 @@ The available resource creation methods are
 | getMe |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1me/get) | Get information about the device. |
 | getNotificationTypeList |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1notification-types/get) | Get a list of available notifications. |
 | getSettingTypeList |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1setting-types/get) | Get a list of available setting types. |
+| getTeam |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1team/get) | Get the team information for a device. |
 
 ### Updating Resources
 

@@ -1,1 +1,0 @@
-iotery_embedded_python_sdk

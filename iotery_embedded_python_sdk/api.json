@@ -2,6 +2,13 @@
   "version": "1.0.0",
   "routes": [
     {
+      "path": "/embedded/actions/set-notification-instance-list-inactive",
+      "name": "setNotificationInstanceListInactive",
+      "method": "PUT",
+      "description": "Set notification instance list inactive.",
+      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1actions~1set-notification-instance-list-inactive/put"
+    },
+    {
       "path": "/embedded/basic/get-token",
       "name": "getDeviceTokenBasic",
       "method": "POST",
@@ -56,6 +63,13 @@
       "method": "GET",
       "description": "Get a list of available data types.",
       "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1data-types/get"
+    },
+    {
+      "path": "/embedded/devices",
+      "name": "createDevice",
+      "method": "POST",
+      "description": "Create a device.",
+      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices/post"
     },
     {
       "path": "/embedded/devices/:deviceUuid/channelId/:channelId",
@@ -142,11 +156,25 @@
       "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1notification-instances~1:notificationInstanceUuid~1inactive/patch"
     },
     {
+      "path": "/embedded/provision-network",
+      "name": "provisionNetwork",
+      "method": "POST",
+      "description": "Provision a network.",
+      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1provision-network/post"
+    },
+    {
       "path": "/embedded/setting-types",
       "name": "getSettingTypeList",
       "method": "GET",
       "description": "Get a list of available setting types.",
       "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1setting-types/get"
+    },
+    {
+      "path": "/embedded/team",
+      "name": "getTeam",
+      "method": "GET",
+      "description": "Get the team information for a device.",
+      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1team/get"
     },
     {
       "path": "/embedded/token/asymmetric",
