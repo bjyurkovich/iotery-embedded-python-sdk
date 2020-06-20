@@ -55,6 +55,7 @@ _spec = json.loads(api_string)
 # set up the api
 for route in _spec["routes"]:
 
+    handler = None
     # handle methods for each route
     if route["method"] == "GET":
         def handler(self, opts={},  __path=route["path"], **kwargs):
@@ -100,4 +101,5 @@ for route in _spec["routes"]:
 
             return res.json()
     # attach to the class
+
     a = setattr(Iotery, route["name"], handler)
