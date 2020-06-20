@@ -130,6 +130,7 @@ The available resource creation methods are
 
 |    `methodName`    | `input` | link |  `description`
 |:-----------:|:-----------:|:-----------:|:-----------:|
+| setNotificationInstanceListInactive |  | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1actions~1set-notification-instance-list-inactive/patch) | Set notification instance list inactive. |
 | setBatchedCommandInstancesAsExecuted | batchReferenceUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1batch-command-instances~1:batchReferenceUuid~1executed/patch) | Set a collection of batched command instances as executed. |
 | setCommandInstanceAsExecuted | commandInstanceUuid | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1command-instances~1:commandInstanceUuid~1executed/patch) | Report that a command has been executed to the server. |
 | updateDeviceChannel | deviceUuid,channelId | [link](https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1devices~1:deviceUuid~1channelId~1:channelId/patch) | Update device channel. |

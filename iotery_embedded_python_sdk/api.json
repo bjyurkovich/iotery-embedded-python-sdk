@@ -4,9 +4,9 @@
     {
       "path": "/embedded/actions/set-notification-instance-list-inactive",
       "name": "setNotificationInstanceListInactive",
-      "method": "PUT",
+      "method": "PATCH",
       "description": "Set notification instance list inactive.",
-      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1actions~1set-notification-instance-list-inactive/put"
+      "link": "https://iotery.io/docs/embedded#tag/Embedded/paths/~1embedded~1actions~1set-notification-instance-list-inactive/patch"
     },
     {
       "path": "/embedded/basic/get-token",
